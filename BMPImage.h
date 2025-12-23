@@ -22,10 +22,10 @@ public:
     uint32_t getWidth() const override;
     uint32_t getHeight() const override;
     
-    // std::vector<uint8_t> getPixelData() const override;
-    // void setPixelData(const std::vector<uint8_t>& data, uint32_t width, uint32_t height) override;
+    void getPixelData(uint32_t x, uint32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const override;
+    void setPixelData(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b) override;
 
-    // void rotateClockwise();
-    // void rotateCounterClockwise();
+    std::unique_ptr<Image> rotateClockwise() const override;
+    // std::unique_ptr<Image> void rotateCounterClockwise() const override;
 };
 #endif

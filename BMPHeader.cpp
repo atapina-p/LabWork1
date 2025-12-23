@@ -99,7 +99,7 @@ bool BMPHeader::write(std::ofstream& file) const{
     return true;
 }
 
-void BMPHeader::setDimensions(int32_t new_width, int32_t new_height){
+void BMPHeader::setDimensions(uint32_t new_width, uint32_t new_height){
     setWidth(new_width);
     setHeight(new_height);
     uint32_t rowStride = ((new_width * 3 + 3) / 4) * 4;

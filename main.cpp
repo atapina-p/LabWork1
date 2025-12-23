@@ -7,7 +7,8 @@ int main() {
         std::cerr << "Failed to load image\n";
         return 1;
     }
-    img.save("output.bmp");
 
+    auto imgCW = img.rotateClockwise();
+    imgCW->save("output_cw.bmp");
     return 0;
 }

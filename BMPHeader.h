@@ -39,7 +39,7 @@ class BMPHeader {
 
         bool read(std::ifstream& file);
         bool write(std::ofstream& file) const;
-        void setDimensions(int32_t new_width, int32_t new_height);
+        
 
         uint32_t getWidth() const;
         uint32_t getHeight() const;
@@ -51,5 +51,6 @@ class BMPHeader {
         void setWidth(uint32_t new_width);
         void setHeight(uint32_t new_height);
         void setImageDataSize(uint32_t new_size);
+        void setDimensions(uint32_t new_width, uint32_t new_height);
 };
 #endif
