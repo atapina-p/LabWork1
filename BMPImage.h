@@ -26,6 +26,6 @@ public:
     void setPixelData(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b) override;
 
     std::unique_ptr<Image> rotateClockwise() const override;
-    // std::unique_ptr<Image> void rotateCounterClockwise() const override;
+    std::unique_ptr<Image> rotateCounterClockwise() const override;
 };
 #endif

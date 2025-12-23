@@ -10,5 +10,8 @@ int main() {
 
     auto imgCW = img.rotateClockwise();
     imgCW->save("output_cw.bmp");
+
+    auto imgCCW = img.rotateCounterClockwise();
+    imgCCW->save("output_ccw.bmp");
     return 0;
 }

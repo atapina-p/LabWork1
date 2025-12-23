@@ -19,7 +19,7 @@ public:
     virtual uint32_t getHeight() const = 0;
 
     virtual std::unique_ptr<Image> rotateClockwise() const = 0; // вращение по часовой стрелке
-    // virtual std::unique_ptr<Image> rotateCounterClockwise() const = 0; // против часовой
+    virtual std::unique_ptr<Image> rotateCounterClockwise() const = 0; // против часовой
     
 
     virtual void getPixelData(uint32_t x, uint32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const = 0; // получение информации о пикселях

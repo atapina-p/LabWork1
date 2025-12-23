@@ -110,3 +110,28 @@ std::unique_ptr<Image> BMPImage::rotateClockwise() const {
     }
     return newImage;
 }
+
+
+std::unique_ptr<Image> BMPImage::rotateCounterClockwise() const {
+    uint32_t width = getWidth();
+    uint32_t height = getHeight();
+
+    auto newImage = std::make_unique<BMPImage>(); 
+    newImage->header = header;
+    newImage->header.setDimensions(height, width);
+
+    uint32_t newRowSize = newImage->calculateRowSize();
+    newImage->pixelData.assign(newRowSize * width, 0);
+
+    for (uint32_t y = 0; y < height; y++){
+        for (uint32_t x = 0; x < width; x++){
+            uint8_t r, g, b;
+            getPixelData(x, y, r, g, b);
+
+            uint32_t newX = y;
+            uint32_t newY = width - 1 - x;
+            newImage->setPixelData(newX, newY, r, g, b);
+        }
+    }
+    return newImage;
+}
