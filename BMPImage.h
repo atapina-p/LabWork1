@@ -27,5 +27,6 @@ public:
 
     std::unique_ptr<Image> rotateClockwise() const override;
     std::unique_ptr<Image> rotateCounterClockwise() const override;
+    void gaussianBlur() override;
 };
 #endif

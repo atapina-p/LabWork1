@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 uint32_t BMPImage::getWidth() const {
     return header.getWidth();
@@ -134,4 +135,45 @@ std::unique_ptr<Image> BMPImage::rotateCounterClockwise() const {
         }
     }
     return newImage;
+}
+
+void BMPImage::gaussianBlur() {
+    uint32_t width = getWidth();
+    uint32_t height = getHeight();
+    
+    static float kernel[3][3] = {
+        {1.0f/16, 2.0f/16, 1.0f/16},
+        {2.0f/16, 4.0f/16, 2.0f/16},
+        {1.0f/16, 2.0f/16, 1.0f/16}
+    };
+
+    uint32_t rowSize = calculateRowSize();
+    std::vector<uint8_t> newPixelData = pixelData;
+
+
+    for(uint32_t y = 0; y < height - 2; y++) {
+        for(uint32_t x = 0; x < width - 2; x++) {
+            float sumr=0.0f, sumg=0.0f, sumb=0.0f;
+            for(int ky = -1; ky <= 1; ky++){
+                for(int kx = -1; kx <= 1; kx++){
+                    int nx = static_cast<int>(x) + kx;
+                    int ny = static_cast<int>(y) + ky;
+                    if (nx < 0) nx = 0;
+                    if (nx >= static_cast<int>(width)) nx -= 1;
+                    if (ny < 0) ny = 0;
+                    if (ny >= static_cast<int>(height)) ny -= 1;
+                    uint8_t r, g, b;
+                    getPixelData(nx, ny, r, g, b);
+                    float weight = kernel[ky+1][kx+1];
+                    sumr += r * weight;
+                    sumg += g * weight;
+                    sumb += b * weight;
+                }
+            }
+            newPixelData[y * rowSize + x * 3] = static_cast<uint8_t>(sumb);
+            newPixelData[y * rowSize + x * 3 + 1] = static_cast<uint8_t>(sumg);
+            newPixelData[y * rowSize + x * 3 + 2] = static_cast<uint8_t>(sumr);
+        }
+    }
+    pixelData = std::move(newPixelData);
 }
