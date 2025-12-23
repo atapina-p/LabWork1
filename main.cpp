@@ -1,10 +1,13 @@
 #include "BMPImage.h"
 #include <iostream>
-// #include "GaussianBlur.h"
 
 int main() {
+    std::string filename;
+    std::cout << "File name:" << std::endl;
+    std::cin >> filename;
+
     BMPImage img;
-    if (!img.load("input.bmp")) {
+    if (!img.load(filename)) {
         std::cerr << "Failed to load image\n";
         return 1;
     }
@@ -15,13 +18,7 @@ int main() {
     auto imgCCW = img.rotateCounterClockwise();
     imgCCW->save("output_ccw.bmp");
 
-    // Фильтр Гаусса
     imgCW->gaussianBlur();
     imgCW->save("gaussian_blur.bmp");
-
-    // BMPImage imgBlur;
-    // imgBlur.setPixelData(data, w, h);
-    // imgBlur.save("output_blur.bmp");
-
     return 0;
 }
