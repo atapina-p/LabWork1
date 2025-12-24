@@ -1,8 +1,15 @@
+/*
+* Polina Atapina
+* st139859@student.spbu.ru
+* My labwork 1
+*/
+
 #include <gtest/gtest.h>
 #include "BMPImage.h"
 
 
-TEST(BMPImageTest, LoadSaveTest){
+TEST(BMPImageTest, LoadSaveTest)
+{
     BMPImage image;
     EXPECT_TRUE(image.load("test.bmp"));
     EXPECT_TRUE(image.save("copytest.bmp"));
@@ -31,10 +38,11 @@ TEST(BMPImageTest, RotateCounterClockWise)
     EXPECT_EQ(img_ccw->getHeight(), width);
 }
 
-TEST(BMPImageTest, ApplyGaussianFilter) {
+TEST(BMPImageTest, ApplyGaussianFilter)
+{
     BMPImage image;
     image.load("test.bmp");
-    
+
     auto img_ccw = image.rotateCounterClockwise();
     auto old_img = image.rotateCounterClockwise();
     img_ccw->gaussianBlur();
@@ -43,20 +51,23 @@ TEST(BMPImageTest, ApplyGaussianFilter) {
     uint32_t width = img_ccw->getWidth();
     uint32_t height = img_ccw->getHeight();
     bool changed = false;
-    for(uint32_t y=0; y<height; y++){
-        for(uint32_t x=0; x<width; x++){
+    for(uint32_t y=0; y<height; y++)
+    {
+        for(uint32_t x=0; x<width; x++)
+        {
             uint8_t r, g, b;
             img_ccw->getPixelData(x, y, r, g, b);
             uint8_t oldr, oldg, oldb;
             old_img->getPixelData(x, y, oldr, oldg, oldb);
-            if(r!=oldr || g!=oldg || b!=oldb) {
+            if(r!=oldr || g!=oldg || b!=oldb)
+            {
                 changed = true;
                 break;
             }
         }
         if(changed) break;
     }
-    
+
     EXPECT_TRUE(changed);
 }
 

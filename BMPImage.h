@@ -1,3 +1,9 @@
+/*
+* Polina Atapina
+* st139859@student.spbu.ru
+* My labwork 1
+*/
+
 #ifndef BMPIMAGE
 #define BMPIMAGE
 
@@ -6,7 +12,8 @@
 #include <string>
 #include <vector>
 
-class BMPImage : public Image {
+class BMPImage : public Image
+{
 private:
     BMPHeader header;
     std::vector<uint8_t> pixelData;
@@ -21,7 +28,7 @@ public:
 
     uint32_t getWidth() const override;
     uint32_t getHeight() const override;
-    
+
     void getPixelData(uint32_t x, uint32_t y, uint8_t& r, uint8_t& g, uint8_t& b) const override;
     void setPixelData(uint32_t x, uint32_t y, uint8_t r, uint8_t g, uint8_t b) override;
 
