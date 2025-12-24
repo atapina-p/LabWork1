@@ -151,8 +151,8 @@ void BMPImage::gaussianBlur() {
     std::vector<uint8_t> newPixelData = pixelData;
 
 
-    for(uint32_t y = 0; y < height - 2; y++) {
-        for(uint32_t x = 0; x < width - 2; x++) {
+    for(uint32_t y = 0; y < height; y++) {
+        for(uint32_t x = 0; x < width; x++) {
             float sumr=0.0f, sumg=0.0f, sumb=0.0f;
             for(int ky = -1; ky <= 1; ky++){
                 for(int kx = -1; kx <= 1; kx++){

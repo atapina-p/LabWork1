@@ -13,12 +13,24 @@ int main() {
     }
 
     auto imgCW = img.rotateClockwise();
-    imgCW->save("output_cw.bmp");
+    if (!imgCW->save("output_cw.bmp")) {
+        std::cerr << "Failed to save output_cw.bmp\n";
+        return 1;
+    }
+    
 
     auto imgCCW = img.rotateCounterClockwise();
-    imgCCW->save("output_ccw.bmp");
+    if (!imgCCW->save("output_ccw.bmp")) {
+        std::cerr << "Failed to save output_ccw.bmp\n";
+        return 1;
+    }
+    
 
     imgCW->gaussianBlur();
-    imgCW->save("gaussian_blur.bmp");
+    if (!imgCW->save("gaussian_blur.bmp")) {
+        std::cerr << "Failed to save gaussian_blur.bmp\n";
+        return 1;
+    }
+    
     return 0;
 }
