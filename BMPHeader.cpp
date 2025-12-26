@@ -1,3 +1,9 @@
+/*
+* Polina Atapina
+* st139859@student.spbu.ru
+* My labwork 1
+*/
+
 #include "BMPHeader.h"
 #include <vector>
 
@@ -7,7 +13,8 @@ BMPHeader::BMPHeader(uint32_t n_width, uint32_t n_height)
     fileHeader.reserved1 = 0;
     fileHeader.reserved2 = 0;
     fileHeader.offsetData = sizeof(BMPFileHeader) + sizeof(BMPInfoHeader);
-
+    
+    
     infoHeader.size = 40;
     infoHeader.width = static_cast<int32_t>(n_width);
     infoHeader.height = static_cast<int32_t>(n_height);
@@ -19,7 +26,7 @@ BMPHeader::BMPHeader(uint32_t n_width, uint32_t n_height)
     infoHeader.colorsUsed = 0; // color used
     infoHeader.colorsImportant = 0; // important colors
 
-    rowStride = ((n_width * 3 + 3) / 4) * 4;
+    rowStride = ((n_width * bitesPerPixel + bitesPerPixel) / paddingAligment) * paddingAligment;
     infoHeader.imageSize = rowStride*n_height;
     fileHeader.fileSize = fileHeader.offsetData + infoHeader.imageSize;
 }
@@ -41,10 +48,6 @@ uint32_t BMPHeader::getRowStride() const
 uint32_t BMPHeader::getImageDataSize() const
 {
     return infoHeader.imageSize;
-}
-uint16_t BMPHeader::getBitsPerPixel() const
-{
-    return infoHeader.bitCount;
 }
 uint32_t BMPHeader::getDataOffset() const
 {
@@ -115,7 +118,7 @@ void BMPHeader::setDimensions(uint32_t new_width, uint32_t new_height)
 {
     setWidth(new_width);
     setHeight(new_height);
-    uint32_t rowStride = ((new_width * 3 + 3) / 4) * 4;
+    uint32_t rowStride = ((new_width * bitesPerPixel + bitesPerPixel) / paddingAligment) * paddingAligment;
     setImageDataSize(rowStride * new_height);
     fileHeader.fileSize = fileHeader.offsetData + getImageDataSize();
 }

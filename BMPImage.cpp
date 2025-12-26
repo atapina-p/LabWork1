@@ -20,16 +20,17 @@ uint32_t BMPImage::getHeight() const
     return header.getHeight();
 }
 
+
 uint32_t BMPImage::calculateRowSize() const
 {
     uint32_t w = getWidth();
-    return ((w * 3 + 3) / 4) * 4;
+    return ((w * bitesPerPixel + bitesPerPixel) / paddingAligment) * paddingAligment;
 }
 
 uint32_t BMPImage::calculatePadding() const
 {
     uint32_t w = getWidth();
-    return (4 - (w * 3) % 4) % 4;
+    return (paddingAligment - (w * bitesPerPixel) % paddingAligment) % paddingAligment;
 }
 
 

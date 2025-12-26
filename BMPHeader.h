@@ -17,6 +17,7 @@ struct BMPFileHeader
     uint16_t reserved1;
     uint16_t reserved2;
     uint32_t offsetData;
+    
 };
 
 struct BMPInfoHeader
@@ -32,6 +33,7 @@ struct BMPInfoHeader
     int32_t yPixelsPerMeter;
     uint32_t colorsUsed; // color used
     uint32_t colorsImportant; // important colors
+    
 };
 #pragma pack(pop)
 
@@ -40,6 +42,8 @@ class BMPHeader
 private:
     BMPFileHeader fileHeader;
     BMPInfoHeader infoHeader;
+    static constexpr uint32_t bitesPerPixel=3;
+    static constexpr uint32_t paddingAligment=4;
     uint32_t rowStride;
 
 public:
@@ -54,7 +58,6 @@ public:
     uint32_t getHeight() const;
     uint32_t getRowStride() const;
     uint32_t getImageDataSize() const;
-    uint16_t getBitsPerPixel() const;
     uint32_t getDataOffset() const;
 
     void setWidth(uint32_t new_width);
